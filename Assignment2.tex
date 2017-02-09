@@ -40,9 +40,91 @@
 \unframedsolutions
 
 \begin{questions}
-\question
 %Question1
 \begin{solution}
+\begin{parts}
+\part 
+
+\begin{minipage}[t]{\linewidth}
+                \centering
+\begin{tikzpicture}
+[ 
+level distance=9mm, 
+every node/.style={circle, draw, inner sep=1.5pt},
+level 1/.style={sibling distance=45mm}, 
+level 2/.style={sibling distance=22mm}, 
+level 3/.style={sibling distance=10mm},
+level 4/.style={sibling distance=7mm},
+label distance=-1mm
+]
+
+\node (root) [label=90:$-1$] {14} 
+child {node[label=130:$+1$] {8} 
+	child {node[label=130:$-1$] {7} 
+		child {node[label=130:$0$] {6}} 
+		child {missing}
+	}
+	child {node[label=50:$+1$] {10} 
+		child {node[label=130:$0$] {9} 
+		    child{missing}
+		    child{missing}}
+		child {node[label=50:$-1$] {12}
+		    child{node[label=130:$0$] {11}}
+		    child{missing}}
+	} 
+}
+child {node[label=50:$+1$] {17}
+ 	child {node[label=130:$0$] {15} 
+ 		child {missing} 
+ 		child {missing}
+ 	}
+ 	child {node[label=50:$+1$] {19}
+		child {missing}
+		child {node[label=50:$0$] {21}}
+	}
+};
+\end{tikzpicture}
+\end{minipage}
+
+\part 
+
+
+\begin{minipage}[t]{\linewidth}
+                \centering
+\begin{tikzpicture}
+[ 
+level distance=9mm, 
+every node/.style={circle, draw, inner sep=1.5pt},
+level 1/.style={sibling distance=45mm}, 
+level 2/.style={sibling distance=22mm}, 
+level 3/.style={sibling distance=10mm},
+level 4/.style={sibling distance=7mm},
+label distance=-1mm
+]
+
+\node (root) [label=90:$0$] {10} 
+child {node[label=130:$-1$] {8} 
+	child {node[label=130:$-1$] {7} 
+		child {node[label=130:$0$] {6}} 
+		child {missing}
+	}
+	child {node[label=50:$0$] {9}
+	} 
+}
+child {node[label=50:$0$] {14}
+		child {node[label=130:$-1$] {12}
+		    child{node[label=130:$0$] {11}}
+		    child{missing}
+ 	}
+ 	child {node[label=50:$0$] {19}
+		child {node[label=130:$0$] {15}}
+		child {node[label=50:$0$] {21}}
+	}
+};
+\end{tikzpicture}
+\end{minipage}
+
+\end{parts}
 
 \end{solution}
 
