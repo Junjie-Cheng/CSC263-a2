@@ -172,7 +172,7 @@ The following is the algorithm.
 
 The helper function $\proc{$BF\_Check$}(T)$ checks whether the binary search tree $T$ is an AVL tree. It returns $-1$ if the tree $T$ is unbalanced, otherwise, it returns the height of tree $T$ + 1.\\
 \\
-First it check $T$'s sub-trees (we are treating $Nil$ as an "empty tree", which is vacuously an AVL tree). If either of $T$'s sub-tree is not an AVL tree, T cannot be an AVL tree. $-1$ is returned.\\
+First it check $T$'s sub-trees (we are treating $Nil$ as an ``empty tree", which is vacuously an AVL tree). If either of $T$'s sub-tree is not an AVL tree, T cannot be an AVL tree. $-1$ is returned.\\
 \\
 Also, to satisfy the AVL balancing condition, the difference between the height of $T$'s left sub-tree (i.e. the return value of $\proc{$BF\_Check$}(T.left)-1$, if it is balanced) and the height of $T$'s right sub-tree (i.e. the return value of $\proc{$BF\_Check$}(T.right)-1$, if it is balanced) must be at most 1. In these cases, the height of tree $T + 1$ is returned. \\
 \\
@@ -184,13 +184,13 @@ The function $\proc{$AVL\_Balance\_Check$}(T)$ translate the result of $\proc{$B
 \end{itemize}
 The helper function $\proc{$BF\_Check$}(T)$ has a worst case running time of $\Theta(n)$, where $n$ is the number of the nodes in the tree $T$.\\
 \\
-First, by line 4 and line 5, both left sub-tree and right sub-tree are called (for all non-empty trees). Because of the recursion, every node in tree $T$ is called exactly once, and all the (imaginary) empty "sub-trees" of leaves and one-child nodes are called exactly once.\\
+First, by line 4 and line 5, both left sub-tree and right sub-tree are called (for all non-empty trees). Because of the recursion, every node in tree $T$ is called exactly once, and all the (imaginary) empty ``sub-trees" of leaves and one-child nodes are called exactly once.\\
 \\
-In the worst case (in fact, in any case), there will be a total of $n+1$ such empty "sub-trees". The proof is easy. Let's create a new tree, $T^*$, by making all "empty nodes" in tree $T$ "real nodes". Then, all of the "empty nodes" become the leaves in $T*$, and all nodes originally in $T$ becomes internal nodes in $T^*$. Note that $T^*$ is a full (or proper/plane) binary tree (that is, every node in the tree has either 0 or 2 children). So, the number of "empty nodes" in $T$, should be the total number of the leaves in $T^*$, which, according to the property of full binary tree, should equal the number of internal nodes in the tree $T^*$ $+1$, i.e. $n+1$.\\
+In the worst case (in fact, in any case), there will be a total of $n+1$ such empty ``sub-trees". The proof is easy. Let's create a new tree, $T^*$, by making all ``empty nodes" in tree $T$ ``real nodes". Then, all of the ``empty nodes" become the leaves in $T*$, and all nodes originally in $T$ becomes internal nodes in $T^*$. Note that $T^*$ is a full (or proper/plane) binary tree (that is, every node in the tree has either 0 or 2 children). So, the number of ``empty nodes" in $T$, should be the total number of the leaves in $T^*$, which, according to the property of full binary tree, should equal the number of internal nodes in the tree $T^*$ $+1$, i.e. $n+1$.\\
 \\
-For each of the "empty node", function $\proc{$BF\_Check$}()$ executes only one comparison before returning. A total of $n+1$ comparisons are made for all "empty nodes".\\
+For each of the ``empty node", function $\proc{$BF\_Check$}()$ executes only one comparison before returning. A total of $n+1$ comparisons are made for all ``empty nodes".\\
 \\
-For each of the "internal nodes" of $T^*$ (i.e. the nodes of $T$), from line 1 to 5, 1 comparison and 2 assignments must be executed. In the worst case, there can be at most 5 more comparisons, executed on line 6, 6, 8, 10, 12 successively. So, in the worst case, 2 assignments and 6 comparisons are made for each node in tree $T$, resulting a total of $6n$ comparisons and $2n$ assignments.\\
+For each of the ``internal nodes" of $T^*$ (i.e. the nodes of $T$), from line 1 to 5, 1 comparison and 2 assignments must be executed. In the worst case, there can be at most 5 more comparisons, executed on line 6, 6, 8, 10, 12 successively. So, in the worst case, 2 assignments and 6 comparisons are made for each node in tree $T$, resulting a total of $6n$ comparisons and $2n$ assignments.\\
 \\
 Using $c$ to denote the time for each comparison and $a$ to denote the time for each assignment, the time complexity of $\proc{$BF\_Check$}(T)$ is $$(n+1)c+6nc+2na == 7nc+c+2na$$. Note that $\proc{$AVL\_Balance\_Check$}(T)$ performs one $\proc{$BF\_Check$}(T)$ function all and one comparison, the time complexity of $\proc{$AVL\_Balance\_Check$}(T)$ is $$T(n) = 7nc+2c+2na$$.
 Note that there exist positive constant$c_1=2a+7c$, $c_2=2a+9c$, $n_0=2$ such that $$\forall n\geq n_0 .\  0\leq c_1n \leq T(n) \leq c_2n$$
