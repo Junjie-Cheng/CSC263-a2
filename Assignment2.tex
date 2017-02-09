@@ -424,11 +424,14 @@ So, $$T(n) \in \Theta(n)$$, i.e. the time complexity of the algorithm is in $\Th
 \item The data structure we are using is AVL tree. \\
 The tree will store m (or the number of inputs so far, whichever is smaller) smallest values of all the inputs so far.
 
-\item The algorithm is, insert the first $m$ input values into the AVL tree directly, so that the tree gets a size of $m$. Then, for each of following inputs, say, $input$, compare $input$ with the largest element$^1$, say, $l$, in the AVL tree. If $input$ is less than $l$, then delete $l$ from the tree and then add $input$ to the AVL tree; else, do nothing$^2$. When a query is requested, do an inorder tree traversal$^3$ and print each value.\\
+\item The algorithm is, insert the first $m$ input values into the AVL tree directly, so that the tree gets a size of $m$. Then, for each of following inputs, say, $input$, compare $input$ with the largest element$^1$, say, $l$, in the AVL tree. If $input$ is less than $l$, then delete $l$ from the tree and then add $input$ to the AVL tree; else, do nothing$^2$. When a query is requested, do an inorder tree traversal$^3$ and print each value.
+
 Notes: 
-1. The largest element is obtained by traversing along the right child all the way down the tree.\\
-2. This ensures that the elements in the AVL tree are the smallest $m$ values of all the inputs. \\
-3.  According to the property of AVL tree, the inorder traversal will visit the nodes in the order that the data of the nodes are increasing.\\
+1. The largest element is obtained by traversing along the right child all the way down the tree.
+
+2. This ensures that the elements in the AVL tree are the smallest $m$ values of all the inputs. 
+
+3.  According to the property of AVL tree, the inorder traversal will visit the nodes in the order that the data of the nodes are increasing.
 
 \item The following is the pseudo-code.
 Initial values for global variables:
@@ -470,14 +473,21 @@ Pseudo-code for $\proc{$AVL\_Insert$}()$ and $\proc{$AVL\_Delete$}()$ is in the 
 
 \item 
 \begin{itemize}
-\item Time complexity for processing input key:\\
-When processing a key, the condition in line 1 is always evaluated as false (evaluation taking $O(1)$ time), so the else block from line 3 to 11 is executed.\\
-Initiation of global variables takes $O(1)$ time, we count this as part of the operation to process the first input key.
-In fact, processing the first input takes only $O(1)$ time. Line 4 condition must be true, and what line 5 does is actually creating an AVL Node with $key=input$ and pointing $T$ to that node, which takes constant time. Addition in line 6 also takes constant time. So, first key process takes $O(1)$ time.\\
-For the following inputs, (Case i) if the condition in line 4 is true, then $O(\log{(sizof(T))}$ time is taken on line 5 and constant time is taken on line 6. Note that $sizeof(T) =count< m$, so the total time taken is bounded above by $O(1)+O(\log{m})+O(1)=O(\log{m})$. \\
+\item Time complexity for processing input key:
+
+When processing a key, the condition in line 1 is always evaluated as false (evaluation taking $O(1)$ time), so the else block from line 3 to 11 is executed.
+
+(Special case) Initiation of global variables takes $O(1)$ time, we count this as part of the operation to process the first input key.
+In fact, processing the first input takes only $O(1)$ time. Line 4 condition must be true, and what line 5 does is actually creating an AVL Node with $key=input$ and pointing $T$ to that node, which takes constant time. Addition in line 6 also takes constant time. So, first key process takes $O(1)$ time.
+
+For the following inputs, 
+
+(Case i) if the condition in line 4 is true, then $O(\log{(sizof(T))}$ time is taken on line 5 and constant time is taken on line 6. Note that $sizeof(T) =count< m$, so the total time taken is bounded above by $O(1)+O(\log{m})+O(1)=O(\log{m})$. 
+
 (Case ii) If the condition in line 4 is false, then, $T$ is already of $m$. In the worst case, the condition in line 9 is true and line 8, 10, 11 are executed. The function $\proc{$Max\_Value$}(T)$ in line 8, traverses along the path to the right-most leaf. 
 Note that the height of an AVL tree with $m$ nodes, in the worst case, is $1.44\log_2{(m+2)}\in O(\log{m})$, so at most $O(\log{m}+1)$ nodes are visited. Also note that on each node, the code runs a constant time, line 8 runs $O(\log{m}+1))*O(1) = O(\log{m})$ time.
-$\proc{$AVL\_Insert$}()$ and $\proc{$AVL\_Delete$}()$, according to the handout, can be done in $O(\log{m})$ time. So, the worst case running time for (Case ii) is $O(1)+O(\log{m})+O(\log{m}) = O(\log{m})$ time, same as (Case i).\\
+$\proc{$AVL\_Insert$}()$ and $\proc{$AVL\_Delete$}()$, according to the handout, can be done in $O(\log{m})$ time. So, the worst case running time for (Case ii) is $O(1)+O(\log{m})+O(\log{m}) = O(\log{m})$ time, same as (Case i).
+
 Thus, in the worst case, processing a input key takes $O(\log{m})$ time.
 
 \item Time complexity for processing query:
