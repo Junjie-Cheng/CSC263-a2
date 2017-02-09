@@ -161,7 +161,7 @@ child {node[label=90:$-1$] {11}
 \end{tikzpicture}
 \end{minipage}
 
-Then $T'= delete(T,3)$ will be: \\
+Then $T'= \proc{$DELETE$}(T,3)$ will be: \\
 \begin{minipage}[t]{\linewidth}
                 \centering
 \begin{tikzpicture}
@@ -181,7 +181,7 @@ child {node[label=90:$0$] {11}
 \end{tikzpicture}
 \end{minipage}
 
-$T''= insert(T',3)$ will be: \\
+$T''= \proc{$INSERT$}(T',3)$ will be: \\
 \begin{minipage}[t]{\linewidth}
                 \centering
 \begin{tikzpicture}
@@ -244,7 +244,45 @@ child {node[label=50:$-1$] {11}
 \end{tikzpicture}
 \end{minipage}
 
-Then when we do $delete(T,12)$ First rebalancing:\\
+Then we invoke $DELETE(T,12)$.\\
+Immediately after the node is removed, we get\\
+
+\begin{minipage}[t]{\linewidth}
+                \centering
+\begin{tikzpicture}
+[ 
+level distance=9mm, 
+every node/.style={circle, draw, inner sep=1.5pt},
+level 1/.style={sibling distance=45mm}, 
+level 2/.style={sibling distance=22mm}, 
+level 3/.style={sibling distance=10mm},
+level 4/.style={sibling distance=7mm},
+label distance=-1mm
+]
+
+\node (root) [label=90:$-1$] {8} 
+child {node[label=130:$-1$] {5} 
+	child {node[label=130:$-1$] {3} 
+		child {node[label=130:$-1$] {2}
+		    child {node[label=130:$0$] {1}} 
+		    child {missing}} 
+		child {node[label=50:$0$] {4}} 
+	}
+	child {node[label=50:$-1$] {7} 
+		child {node[label=130:$0$] {6}} 
+		child{missing}
+	} 
+}
+child {node[label=50:$-2$] {11}
+ 	child {node[label=130:$-1$] {10}
+ 	    child{node[label=130:$0$] {9}}
+ 	    child{missing}}
+ 	child {missing}
+};
+\end{tikzpicture}
+\end{minipage}
+
+Node 11 is imbalanced. After the first rebalancing we have:\\
 \begin{minipage}[t]{\linewidth}
                 \centering
 \begin{tikzpicture}
@@ -278,7 +316,7 @@ child {node[label=50:$0$] {10}
 \end{tikzpicture}
 \end{minipage}
 
-But now the right sub-tree is shorter, so we need a second rebalancing:\\
+Now Node 8 is imbalanced, so we need a second rebalancing:\\
 \begin{minipage}[t]{\linewidth}
                 \centering
 \begin{tikzpicture}
