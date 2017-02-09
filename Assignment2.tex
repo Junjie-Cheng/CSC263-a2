@@ -42,7 +42,7 @@
 \begin{questions}
 \question
 %Question1
-\begin{solution}
+\begin{solution}Written by Zi Hao Lin, revised by Junjie Cheng and Jiayun Liu
 \begin{parts}
 \part 
 
@@ -131,7 +131,7 @@ child {node[label=50:$0$] {14}
 
 \question
 %Question2
-\begin{solution}
+\begin{solution}Written by Jiayun Liu, revised by Junjie Cheng and Zi Hao Lin
 \begin{parts}
 \part 
 
@@ -358,7 +358,8 @@ child {node[label=50:$0$] {8}
 
 \question
 %Question3
-\begin{solution}\\
+\begin{solution}Written by Junjie Cheng, revised by Jiayun Liu and Zi Hao Lin
+
 The condition for a binary search tree to be balanced is that for each node, the height of the left sub-tree and the height of the right sub-tree differ by at most one.
 
 The following is the algorithm.
@@ -414,14 +415,14 @@ Using $c$ to denote the time for each comparison and $a$ to denote the time for 
 Note that there exist positive constant$c_1=2a+7c$, $c_2=2a+9c$, $n_0=2$ such that $$\forall n\geq n_0 .\  0\leq c_1n \leq T(n) \leq c_2n$$
 So, by the definition of big-Theta, $$T(n) \in \Theta(n)$$, i.e. the time complexity of the algorithm is in $\Theta(n)$.
 
-Note:
+Note(s):
 
 1. The proof is easy. Let's create a new tree, $T^*$, by making all "empty nodes" in tree $T$ "real nodes". Then, all of the "empty nodes" become the leaves in $T*$, and all nodes originally in $T$ becomes internal nodes in $T^*$. Note that $T^*$ is a full (or proper/plane) binary tree (that is, every node in the tree has either 0 or 2 children). So, the number of "empty nodes" in $T$, should be the total number of the leaves in $T^*$, which, according to the property of full binary tree, should equal the number of internal nodes in the tree $T^*$ $+1$, i.e. $n+1$.
 \end{solution}
 
 \question
 %Question4
-\begin{solution}
+\begin{solution}Written by Zi Hao Lin, revised by Junjie Cheng and Jiayun Liu
 \begin{enumerate}
 \item The data structure we are using is AVL tree. \\
 The tree will store m (or the number of inputs so far, whichever is smaller) smallest values of all the inputs so far.
