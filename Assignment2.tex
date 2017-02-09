@@ -40,6 +40,7 @@
 \unframedsolutions
 
 \begin{questions}
+\question
 %Question1
 \begin{solution}
 \begin{parts}
@@ -177,24 +178,45 @@ Also, to satisfy the AVL balancing condition, the difference between the height 
 \\
 If the difference between the heights of the sub-trees of $T$ is greater than $1$, then $T$ does not satisfy the AVL balancing condition, and $-1$ is returned.\\
 \\
-The function $\proc{$AVL\_Balance\_Check$}(T)$ translate the result of $\proc{$BF\_Check$}(T)$ into $TRUE$ or $FALSE$ according to its return value. \\
-\\
+The function $\proc{$AVL\_Balance\_Check$}(T)$ translate the result of $\proc{$BF\_Check$}(T)$ into $TRUE$ or $FALSE$ according to its return value.\\
+\begin{itemize}
+\item Worst-case running time
+\end{itemize}
 The helper function $\proc{$BF\_Check$}(T)$ has a worst case running time of $\Theta(n)$, where $n$ is the number of the nodes in the tree $T$.\\
+\\
 First, by line 4 and line 5, both left sub-tree and right sub-tree are called (for all non-empty trees). Because of the recursion, every node in tree $T$ is called exactly once, and all the (imaginary) empty "sub-trees" of leaves and one-child nodes are called exactly once.\\
 \\
 In the worst case (in fact, in any case), there will be a total of $n+1$ such empty "sub-trees". The proof is easy. Let's create a new tree, $T^*$, by making all "empty nodes" in tree $T$ "real nodes". Then, all of the "empty nodes" become the leaves in $T*$, and all nodes originally in $T$ becomes internal nodes in $T^*$. Note that $T^*$ is a full (or proper/plane) binary tree (that is, every node in the tree has either 0 or 2 children). So, the number of "empty nodes" in $T$, should be the total number of the leaves in $T^*$, which, according to the property of full binary tree, should equal the number of internal nodes in the tree $T^*$ $+1$, i.e. $n+1$.\\
 \\
 For each of the "empty node", function $\proc{$BF\_Check$}()$ executes only one comparison before returning. A total of $n+1$ comparisons are made for all "empty nodes".\\
 \\
-For each of the "internal nodes", from line 1 to 5, 1 comparison and 2 assignments must be executed. In the worst case, there can be at most 5 more comparisons, executed on line 6, 6, 8, 10, 12 successively. So, in the worst case, 2 assignments and 6 comparisons are made for each node in tree $T$, resulting a total of $6n$ comparisons and $2n$ assignments.\\
+For each of the "internal nodes" of $T^*$ (i.e. the nodes of $T$), from line 1 to 5, 1 comparison and 2 assignments must be executed. In the worst case, there can be at most 5 more comparisons, executed on line 6, 6, 8, 10, 12 successively. So, in the worst case, 2 assignments and 6 comparisons are made for each node in tree $T$, resulting a total of $6n$ comparisons and $2n$ assignments.\\
 \\
 Using $c$ to denote the time for each comparison and $a$ to denote the time for each assignment, the time complexity of $\proc{$BF\_Check$}(T)$ is $$(n+1)c+6nc+2na == 7nc+c+2na$$. Note that $\proc{$AVL\_Balance\_Check$}(T)$ performs one $\proc{$BF\_Check$}(T)$ function all and one comparison, the time complexity of $\proc{$AVL\_Balance\_Check$}(T)$ is $$T(n) = 7nc+2c+2na$$.
 Note that there exist positive constant$c_1=2a+7c$, $c_2=2a+9c$, $n_0=2$ such that $$\forall n\geq n_0 .\  0\leq c_1n \leq T(n) \leq c_2n$$
 So, $$T(n) \in \Theta(n)$$, i.e. the time complexity of the algorithm is in $\Theta(n)$.
 \end{solution}
 
+\question
 %Question4
 \begin{solution}
+\begin{enumerate}
+\item The data structure we are using is AVL tree. \\
+The tree will store m (or the number of inputs so far, whichever is smaller) smallest values of all the inputs so far.
+
+\item The algorithm is, insert the first $m$ input values into the AVL tree directly, so that the tree gets a size of $m$. Then, for each of following inputs, say, $p$, compare $p$ with the largest element$^1$, say, $l$, in the AVL tree. If $p$ is no less than $l$, then do nothing; else, delete $l$ from the tree and then add $p$ to the AVL tree$^2$. When a query is requested, do an inorder tree traversal$^3$ and print each value.\\
+Notes: 
+1. The largest element is obtained by traversing along the right child all the way down the tree.\\
+2. This ensures that the elements in the AVL tree are the smallest m values of all the inputs. \\
+3.  According to the property of AVL tree, the inorder traversal will visit the nodes in the order that the data of the nodes are increasing.\\
+
+\item The following is the pseudo-code.
+\begin{codebox}
+
+\end{codebox}
+
+
+\end{enumerate}
 
 \end{solution}
 
