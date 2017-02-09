@@ -1,0 +1,123 @@
+\documentclass[11pt, answers]{exam}
+\renewcommand{\baselinestretch}{1.05}
+\usepackage{amsmath,amsthm,verbatim,amssymb,amsfonts,amscd, graphicx}
+\usepackage{graphics}
+
+\usepackage{afterpage}
+\usepackage{caption}
+
+\usepackage{tikz}
+\usepackage{fancybox}
+
+\usepackage{clrscode3e}
+
+\topmargin0.0cm
+\headheight0.0cm
+\headsep0.0cm
+\oddsidemargin0.0cm
+\textheight23.0cm
+\textwidth16.5cm
+\footskip1.0cm
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{surfacecor}{Corollary 1}
+\newtheorem{conjecture}{Conjecture}  
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+ \begin{document}
+ 
+
+
+\title{CSC263: Assignment 2}
+\date{February 9th, 2017}
+\author{Junjie Cheng, Jiayun Liu, Zi Hao Lin}
+\maketitle
+
+\unframedsolutions
+
+\begin{questions}
+\question
+%Question1
+\begin{solution}
+
+\end{solution}
+
+\question
+%Question2
+\begin{solution}
+
+\end{solution}
+
+
+\question
+%Question3
+\begin{solution}\\
+The condition for a binary search tree to be balanced is that for each node, the height of the left sub-tree and the height of the right sub-tree differ by at most one.
+
+The following is the algorithm.
+
+\begin{codebox}
+\Procname{$\proc{$AVL\_Balance\_Check$}(T)$}
+\li \If $(\proc{$BF\_Check$}(T) == -1$)
+\li     \Then \Return \proc{false}
+\li \Else
+\li     \Return \proc{true}
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{$BF\_Check$}(T)$}
+\li \If $(T == Nil)$ 
+\li     \Then \Return $0$ //Base case
+\li \Else
+\li     $left \gets \proc{$BF\_Check$}(T.left)$
+\li     $right \gets \proc{$BF\_Check$}(T.right)$
+\li     \If $(left == -1 $ or $ right == -1)$ // Already unbalanced
+\li         \Then \Return $-1$ 
+\li     \ElseIf $(right - left == 1)$       // $BF=1$
+\li         \Then \Return $right+1$ 
+\li     \ElseIf $(right - left == 0)$       // $BF=0$
+\li         \Then \Return $right+1$ 
+\li     \ElseIf $(right - left == -1)$      // $BF=-1$
+\li         \Then \Return $left+1$ 
+\li     \Else // Unbalanced
+\li         \Return $-1$ \End \End
+\end{codebox}
+
+The helper function $\proc{$BF\_Check$}(T)$ checks whether the binary search tree $T$ is an AVL tree. It returns $-1$ if the tree $T$ is unbalanced, otherwise, it returns the height of tree $T$ + 1.\\
+\\
+First it check $T$'s sub-trees (we are treating $Nil$ as an "empty tree", which is vacuously an AVL tree). If either of $T$'s sub-tree is not an AVL tree, T cannot be an AVL tree. $-1$ is returned.\\
+\\
+Also, to satisfy the AVL balancing condition, the difference between the height of $T$'s left sub-tree (i.e. the return value of $\proc{$BF\_Check$}(T.left)-1$, if it is balanced) and the height of $T$'s right sub-tree (i.e. the return value of $\proc{$BF\_Check$}(T.right)-1$, if it is balanced) must be at most 1. In these cases, the height of tree $T + 1$ is returned. \\
+\\
+If the difference between the heights of the sub-trees of $T$ is greater than $1$, then $T$ does not satisfy the AVL balancing condition, and $-1$ is returned.\\
+\\
+The function $\proc{$AVL\_Balance\_Check$}(T)$ translate the result of $\proc{$BF\_Check$}(T)$ into $TRUE$ or $FALSE$ according to its return value. \\
+\\
+The helper function $\proc{$BF\_Check$}(T)$ has a worst case running time of $\Theta(n)$, where $n$ is the number of the nodes in the tree $T$.\\
+First, by line 4 and line 5, both left sub-tree and right sub-tree are called (for all non-empty trees). Because of the recursion, every node in tree $T$ is called exactly once, and all the (imaginary) empty "sub-trees" of leaves and one-child nodes are called exactly once.\\
+\\
+In the worst case (in fact, in any case), there will be a total of $n+1$ such empty "sub-trees". The proof is easy. Let's create a new tree, $T^*$, by making all "empty nodes" in tree $T$ "real nodes". Then, all of the "empty nodes" become the leaves in $T*$, and all nodes originally in $T$ becomes internal nodes in $T^*$. Note that $T^*$ is a full (or proper/plane) binary tree (that is, every node in the tree has either 0 or 2 children). So, the number of "empty nodes" in $T$, should be the total number of the leaves in $T^*$, which, according to the property of full binary tree, should equal the number of internal nodes in the tree $T^*$ $+1$, i.e. $n+1$.\\
+\\
+For each of the "empty node", function $\proc{$BF\_Check$}()$ executes only one comparison before returning. A total of $n+1$ comparisons are made for all "empty nodes".\\
+\\
+For each of the "internal nodes", from line 1 to 5, 1 comparison and 2 assignments must be executed. In the worst case, there can be at most 5 more comparisons, executed on line 6, 6, 8, 10, 12 successively. So, in the worst case, 2 assignments and 6 comparisons are made for each node in tree $T$, resulting a total of $6n$ comparisons and $2n$ assignments.\\
+\\
+Using $c$ to denote the time for each comparison and $a$ to denote the time for each assignment, the time complexity of $\proc{$BF\_Check$}(T)$ is $$(n+1)c+6nc+2na == 7nc+c+2na$$. Note that $\proc{$AVL\_Balance\_Check$}(T)$ performs one $\proc{$BF\_Check$}(T)$ function all and one comparison, the time complexity of $\proc{$AVL\_Balance\_Check$}(T)$ is $$T(n) = 7nc+2c+2na$$.
+Note that there exist positive constant$c_1=2a+7c$, $c_2=2a+9c$, $n_0=2$ such that $$\forall n\geq n_0 .\  0\leq c_1n \leq T(n) \leq c_2n$$
+So, $$T(n) \in \Theta(n)$$, i.e. the time complexity of the algorithm is in $\Theta(n)$.
+\end{solution}
+
+%Question4
+\begin{solution}
+
+\end{solution}
+
+\end{questions}
+
+
+
+\end{document}
